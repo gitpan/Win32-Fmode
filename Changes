@@ -1,0 +1,6 @@
+Revision history for Perl extension Win32::Fmode.
+
+1.0  Wed Mar  8 04:37:44 2006
+	- original version; created by h2xs 1.23 with options
+		-APf -n Win32::Fmode -v1.0
+
