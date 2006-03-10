@@ -11,7 +11,7 @@ our @EXPORT = qw(
     fmode
 );
 
-our $VERSION = '1.0.1';
+our $VERSION = '1.0.2';
 
 require XSLoader;
 XSLoader::load('Win32::Fmode', $VERSION);
@@ -54,8 +54,8 @@ Win32::Fmode - determine whether a Win32 filehandle is opened for reading, writi
 
 =head1 AUTHOR & COPYRIGHT
 
- Written by BrowserUK/Perlmonks.com.
- Copyright BrowserUK/perlmonks.com.
- bug reports to fq9vbpi02@sneakemail.com
+ Written by BrowserUK.
+ Copyright BrowserUK.
+ bug reports to BrowserUk@cpan.org
 
 =cut
