@@ -11,7 +11,7 @@ our @EXPORT = qw(
     fmode
 );
 
-our $VERSION = '1.0';
+our $VERSION = '1.0.1';
 
 require XSLoader;
 XSLoader::load('Win32::Fmode', $VERSION);
@@ -21,18 +21,41 @@ XSLoader::load('Win32::Fmode', $VERSION);
 1;
 __END__
 
-=heading1 Win32::Fmode
+=head1 NAME
 
-The purpose is to work around the MS C runtime libraries lack of a
-function to retrieve the file mode used when a file is opened.
+Win32::Fmode - determine whether a Win32 filehandle is opened for reading, writing , or both.
 
-Exports a single function c<fmode( filehandle )>
+=head1 SYNOPSIS
 
-Pass it a Perl filehandle and it will return a numeric value that
-represents the mode parameter used on the open.
+ use warnings;
+ use Win32::Fmode;
+ .
+ .
+ my $mode = fmode( \*HND ); # HND is an open filehandle
 
-    fmode( \*FILEHANDLE ) &   1 and print "is readonly";
-    fmode( \*FILEHANDLE ) &   2 and print "is writeonly";
-    fmode( \*FILEHANDLE ) & 128 and print "is read/write";
+=head1 FUNCTIONS
 
-Err. That's it folks. Nothing else to see here. Move along.
+ The purpose is to work around the MS C runtime libraries lack of a
+ function to retrieve the file mode used when a file is opened.
+
+ Exports a single function: fmode
+
+ Pass it a Perl filehandle and it will return a numeric value that
+ represents the mode parameter used on the open.
+
+     fmode( \*FILEHANDLE ) &   1 and print "is readonly";
+     fmode( \*FILEHANDLE ) &   2 and print "is writeonly";
+     fmode( \*FILEHANDLE ) & 128 and print "is read/write";
+
+=head1 LICENSE
+
+ This program is free software; you may redistribute it and/or
+ modify it under the same terms as Perl itself.
+
+=head1 AUTHOR & COPYRIGHT
+
+ Written by BrowserUK/Perlmonks.com.
+ Copyright BrowserUK/perlmonks.com.
+ bug reports to fq9vbpi02@sneakemail.com
+
+=cut
