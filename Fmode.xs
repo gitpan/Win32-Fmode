@@ -6,7 +6,7 @@
 #include <STDIO.h>
 
 int 
-fmode( FILE *stream ) {
+xs_fmode( FILE *stream ) {
     return stream->_flag;
 }
 
@@ -15,5 +15,5 @@ MODULE = Win32::Fmode  PACKAGE = Win32::Fmode
 PROTOTYPES: DISABLE
 
 int
-fmode (stream)
+xs_fmode (stream)
     FILE *  stream

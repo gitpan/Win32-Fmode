@@ -8,3 +8,9 @@ Revision history for Perl extension Win32::Fmode.
     - Minor changes to makefile to remove warning
     - More conventional POD
     - Both courtesy of syphilis/perlmonks.com
+    
+1.0.2 10 MArch 2006
+    - correct packaging error
+    
+1.003 13 March 2006
+    - Added check for undefined filehandle

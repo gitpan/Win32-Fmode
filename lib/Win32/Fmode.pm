@@ -11,12 +11,16 @@ our @EXPORT = qw(
     fmode
 );
 
-our $VERSION = '1.0.2';
+our $VERSION = '1.0.3';
 
 require XSLoader;
 XSLoader::load('Win32::Fmode', $VERSION);
 
-# Preloaded methods go here.
+sub fmode {
+    my $fh = shift;
+    return unless fileno( $fh );
+    return xs_fmode( $fh );
+}
 
 1;
 __END__
@@ -41,7 +45,8 @@ Win32::Fmode - determine whether a Win32 filehandle is opened for reading, writi
  Exports a single function: fmode
 
  Pass it a Perl filehandle and it will return a numeric value that
- represents the mode parameter used on the open.
+ represents the mode parameter used on the open
+ (or undef if the filehandle passed invalid or closed).
 
      fmode( \*FILEHANDLE ) &   1 and print "is readonly";
      fmode( \*FILEHANDLE ) &   2 and print "is writeonly";
