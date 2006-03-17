@@ -11,7 +11,7 @@ our @EXPORT = qw(
     fmode
 );
 
-our $VERSION = '1.0.4';
+our $VERSION = '1.0.5';
 
 require XSLoader;
 XSLoader::load('Win32::Fmode', $VERSION);
@@ -51,21 +51,20 @@ Exports a single function: fmode
 Pass it an open Perl filehandle and it will return a numeric value that
 represents the mode parameter used on the open.
 
-If the parameter passed is not an open filehandle, the call will raise an exception.
-
      fmode( \*FILEHANDLE ) &   1 and print "is readonly";
      fmode( \*FILEHANDLE ) &   2 and print "is writeonly";
      fmode( \*FILEHANDLE ) & 128 and print "is read/write";
+
+If the parameter passed is not an open filehandle, the call will raise an exception.
 
 =head1 BUGS
 
 Note: Ram files c<open FH, '<', \$ram> are not true filehandles (they are tied globs),
 and therefore do not have the associated CRT FILE structure from which this module
-obtains the information, and no way has yet been found to retreive that information
+obtains the information, and no way has yet been found to retrieve that information
 from them.
 
-The module IO::String suffers teh same limitations.
-
+The module IO::String suffers the same limitations.
 
 =head1 LICENSE
 
