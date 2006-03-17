@@ -14,3 +14,7 @@ Revision history for Perl extension Win32::Fmode.
     
 1.003 13 March 2006
     - Added check for undefined filehandle
+    
+1.0.4 17 March 2006
+    - Modified test to cater for the undocumented -1
+    return value from fileno() when passed an open ram file handle
