@@ -11,22 +11,43 @@ our @EXPORT = qw(
     fmode
 );
 
-our $VERSION = '1.0.5';
+our $VERSION = '1.0.6';
 
 require XSLoader;
 XSLoader::load('Win32::Fmode', $VERSION);
 
 sub fmode {
     my $fh = shift;
-    die "No/bad argument supplied!.\nUsage: fmode( open filehandle )"
+    die "Win32::Fmode: No/bad argument supplied!.\n\tUsage: fmode( open filehandle )\n"
         unless defined $fh and ref $fh eq 'GLOB';
-    die "fmode does no currently work on ramfiles\n" if fileno( $fh ) == -1;
-    die "'$fh' is not an open filehandle\n"
+    die "Win32::Fmode: fmode() does not currently work on ramfiles\n" if fileno( $fh ) == -1;
+    die "Win32::Fmode: '$fh' is not an open filehandle\n"
         unless 1+fileno( $fh );
     return xs_fmode( $fh );
 }
 
-1;
+return 1 if caller;
+package main;
+
+my %modes; @modes{ qw[ < > >> +< +> +>> ] } = ( 1, 2, 2, 128, 128, 128 );
+
+for my $mode ( keys %modes ) {
+    open my $fh, $mode, 'testfile' or die "testfile : $!";
+    die "open mode '$mode'; fmode returned '%d'\n"
+        unless Win32::Fmode::fmode( $fh ) == $modes{ $mode };
+}
+open RAM, '<', \ my $ram;
+eval{ Win32::Fmode::fmode( \*RAM ) };
+close RAM;
+die "Ramfile detection failed."
+    unless $@ eq "Win32::Fmode: fmode() does not currently work on ramfiles\n";
+
+eval{ Win32::Fmode::fmode( 'some junk' ); };
+die "Bad argument test failed."
+    unless $@ eq "Win32::Fmode: No/bad argument supplied!.\n\tUsage: fmode( open filehandle )\n";
+
+print "All tests passed";
+
 __END__
 
 =head1 NAME
